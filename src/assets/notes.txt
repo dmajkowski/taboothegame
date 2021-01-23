@@ -1,0 +1,8 @@
+Przebieg dziłania gry po kliknięciu Start:
+
+Team 1 zaczyna gre z 0 punktami
+Zegar zaczyna odliczać od 1 minuty do 0
+
+Dorobić timer
+
+Skonczyłem ze wyskakuje popup i zamyka sie po kliknieciu
