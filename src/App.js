@@ -1,8 +1,7 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 
-import GameComponent from './components/GameComponent';
-import MenuComponent from './components/MenuComponent';
+import Game from './components/Game';
 
 
 
@@ -13,7 +12,7 @@ function App() {
   return (
     <>
 
-      <GameComponent/>
+      <Game />
 
     </>
   );
