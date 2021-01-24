@@ -1,24 +1,27 @@
 import { useState } from 'react';
 
-const TimerComponent = () => {
+const Timer = (props) => {
 
-    const [timer, setTimer] = useState(100);
+    const [maxTime, setMaxTime] = useState(props.maxTime);
 
-    function startTimer(maxTime) {
-        setInterval(() => {
-            if (maxTime !== 0) {
-                maxTime--;
-                setTimer(maxTime);
-            }
-        }, 1000);
-
+    function startTimer() {
+        let currentTime = maxTime;
+        const timerInterval = setInterval(() => {
+            currentTime > 0 && currentTime--;
+            setMaxTime(currentTime);
+            props.timeLeft(currentTime);
+            currentTime === 0 && window.clearInterval(timerInterval)
+            currentTime === 0 && setMaxTime(props.maxTime)
+        }, 1000)
     };
+
 
     return (
         <>
-            <div className="timer">{timer > 60 ? `${Math.floor(timer / 60)} : ${timer % 60}` : timer}</div>
+            <button onClick={startTimer}>Start game</button>
+            <div className="timer">{maxTime > 60 ? `${Math.floor(maxTime / 60)} : ${maxTime % 60}` : maxTime}</div>
         </>
     )
 };
 
-export default TimerComponent;
+export default Timer;

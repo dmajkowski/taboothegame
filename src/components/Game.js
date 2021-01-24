@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import WordBox from "./WordBox";
 import GamingButton from "./GamingButton";
 import Timer from "./Timer";
-import TeamScore from './TeamScore'
+import TeamScore from './TeamScore';
+import GamePopup from './GamePopup';
 
 function Game() {
-  const [activeTeam, setActiveTeam] = useState("Team 1"); //Obecnie grająca drużyna - domyślnie 1
-
+  const [activeTeam, setActiveTeam] = useState("Team 1", "Team2"); //Obecnie grająca drużyna - domyślnie 1
+  const [maxTime, setMaxTime] = useState(15);
   const [currentScore, setCurrentScore] = useState({
     team1Score: 10,
     team2Score: 20,
@@ -38,20 +39,26 @@ function Game() {
     },
   ]); //Tablica obiektów ze słowami do odgadniecia i słowami zabronionymi
 
-  //TUTAJ ZROBIĆ ROZDZIELENIE NA SŁOWO DO ZGADNIĘCIA I SŁOWA ZAKAZANE!!
+  const currentWordSet = words[0];
 
+  const changeActiveTeam = (time) => {
+    if (time === 0) {
+      setActiveTeam(activeTeam === 'Team 1' ? 'Team2' : 'Team 1');
+    }
+  }
 
   return (
     <Router>
       <div className="app">
         <header>Taboo The Game</header>
         <main className="main">
+          <GamePopup />
           <div className="currentPlayer">Teraz grają {activeTeam}</div>
           <div className="scores">
             <TeamScore currentScore={currentScore} />
           </div>
-          <Timer />
-          <WordBox words={words} />
+          <Timer maxTime={maxTime} timeLeft={changeActiveTeam} />
+          <WordBox currentWordSet={currentWordSet} />
           <div className="gaming-buttons">
             <GamingButton />
             <GamingButton />

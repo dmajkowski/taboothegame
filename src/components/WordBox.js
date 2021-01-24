@@ -1,12 +1,19 @@
+import ForbiddenWord from "./ForbiddenWord"
+
 import '../styles/WordBox.css'
 
-const WordBox = ({ words }) => {
-    //TUTAJ PRZEKAZAĆ JUŻ OSOBNE SŁOWO ZAKAZANE I DO ZGADNIECIA
+const WordBox = ({ currentWordSet, currentWordSet: { word, forbiddenWords } }) => {
+    const displayForbiddenWord = () => {
+        return forbiddenWords.map(forbiddenWord => {
+            return <ForbiddenWord forbiddenWord={forbiddenWord} />
+        })
+    }
     return (
         <div className="wordbox">
-            <div></div>
+            <div className="guessWord">{word}</div>
             <div>
-                FORBIDDEN WORDS
+                Zakazane słowa:
+                {displayForbiddenWord()}
             </div>
         </div>
     )
