@@ -9,7 +9,7 @@ const Timer = (props) => {
         const timerInterval = setInterval(() => {
             currentTime > 0 && currentTime--;
             setMaxTime(currentTime);
-            props.timeLeft(currentTime);
+            props.changeActiveTeam(currentTime);
             currentTime === 0 && window.clearInterval(timerInterval)
             currentTime === 0 && setMaxTime(props.maxTime)
         }, 1000)
