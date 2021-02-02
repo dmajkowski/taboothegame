@@ -18,7 +18,7 @@ function Game() {
     team2Score: 20,
   }); //obecny wynik kazdej z druzyn
   const [displayPopup, setDisplayPopup] = useState(true);
-
+  const [startTimer, setStartTimer] = useState(false);
   const [words, setWords] = useState([
     {
       word: "ksiezyc",
@@ -48,20 +48,26 @@ function Game() {
       setActiveTeam(activeTeam === 'Team 1' ? 'Team2' : 'Team 1');
       setRemainingRounds(remainingRounds - 0.5);
       setDisplayPopup(true);
+      setStartTimer(false);
     }
   }
+
+  const startCountingTime = () => {
+    setStartTimer(true);
+  };
+
   return (
     <>
       {remainingRounds ?
         <div className="game">
           <header>Taboo The Game</header>
           <main className="main">
-            {displayPopup && <GamePopup activeTeam={activeTeam} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} />}
+            {displayPopup && <GamePopup activeTeam={activeTeam} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} startCountingTime={startCountingTime} />}
             <div className="currentPlayer">Teraz grają {activeTeam}</div>
             <div className="scores">
               <TeamScore currentScore={currentScore} />
             </div>
-            <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} />
+            <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} startTimer={startTimer} />
             <WordBox currentWordSet={currentWordSet} />
             <div className="gaming-buttons">
               <GamingButton />
