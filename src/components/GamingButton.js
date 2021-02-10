@@ -1,7 +1,7 @@
-const GamingButton = () => {
+const GamingButton = (props) => {
     return (
         <>
-            <button>Click</button>
+            <button onClick={props.correctAnswerProvided}>Click</button>
         </>
     )
 };

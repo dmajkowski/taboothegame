@@ -1,19 +1,24 @@
+import { useEffect } from 'react';
+
 import ForbiddenWord from "./ForbiddenWord"
 
 import '../styles/WordBox.css'
 
-const WordBox = ({ currentWordSet, currentWordSet: { word, forbiddenWords } }) => {
+const WordBox = (props) => {
     const displayForbiddenWord = () => {
-        return forbiddenWords.map(forbiddenWord => {
+        return props.a.forbiddenWords.map(forbiddenWord => {
             return <ForbiddenWord forbiddenWord={forbiddenWord} />
         })
     }
+    useEffect(() => {
+        props.displayNewWord()
+    }, [])
     return (
         <div className="wordbox">
-            <div className="guessWord">{word}</div>
+            <div className="guessWord">{props.a && props.a.word}</div>
             <div>
                 Zakazane słowa:
-                {displayForbiddenWord()}
+                {props.a && displayForbiddenWord()}
             </div>
         </div>
     )
