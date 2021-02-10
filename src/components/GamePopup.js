@@ -20,9 +20,9 @@ const GamePopup = (props) => {
     return (
         <div className="popup">
             <div className="popup-content">
-                Teraz grają {props.activeTeam}
-                <button onClick={countToGameStart}>Start Game</button>
-                {counter}
+                <div className="player">Teraz grają {props.activeTeam}</div>
+                <div className={`countdown ${counter < 5 && "animate"}`}>{counter}</div>
+                <button className="btn" onClick={countToGameStart}>Start Game</button>
             </div>
         </div>
     );
