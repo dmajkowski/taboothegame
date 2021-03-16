@@ -1,7 +1,15 @@
 const GamingButton = (props) => {
+
+    const renderButton = (buttonType) => {
+        switch (buttonType) {
+            case "correct": return <button onClick={props.answerProvided}>+</button>
+            case "incorrect": return <button onClick={props.answerProvided}>-</button>
+        }
+    }
+
     return (
         <>
-            <button onClick={props.correctAnswerProvided}>Click</button>
+            {renderButton(props.type)}
         </>
     )
 };

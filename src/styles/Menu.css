@@ -1,0 +1,63 @@
+.menu-btn{
+    width: 40px;
+    height: 35px;
+    z-index: 200;
+    border: 0;
+    border-top: 5px solid #ffffff;
+    background: none;
+    position: absolute;
+    top: 5%;
+    left: 95%;
+}
+
+.menu-btn::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: 5px solid #ffffff;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+}
+
+.menu-btn::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border-top: 5px solid #ffffff;
+    transform: translateY(-15px);
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover::after{
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover::before{
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.opened{
+    border: none;
+}
+
+.opened::after{
+    transform: rotate(-45deg) translate(15px, -15px);
+}
+
+.opened:hover::after{
+    transform: rotate(-45deg) translate(15px, -15px);
+}
+
+.opened::before{
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.opened:hover::before{
+    transform: rotate(45deg) translate(10px, 10px);
+}

@@ -1,14 +1,26 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/GamePopup.css"
-import { ConsoleWriter } from "istanbul-lib-report";
 
 const GamePopup = (props) => {
     const [counter, setCounter] = useState(5);
+    const [counterAnimation, setCounterAnimation] = useState();
+
+    useEffect(() => {
+        setCounterAnimation(prevState => {
+            if (prevState === "animate") {
+                setCounterAnimation("animate2")
+            } else if (prevState === "animate2") {
+                setCounterAnimation("animate")
+            }
+        });
+    }, [counter])
+
     const setVisibilityOfPopup = () => {
         props.setDisplayPopup(!props.displayPopup);
     }
     const countToGameStart = () => {
+        setCounterAnimation("animate");
         let currentCounter = counter;
         const counterInterval = setInterval(() => {
             setCounter(--currentCounter);
@@ -21,7 +33,7 @@ const GamePopup = (props) => {
         <div className="popup">
             <div className="popup-content">
                 <div className="player">Teraz grają {props.activeTeam}</div>
-                <div className={`countdown ${counter < 5 && "animate"}`}>{counter}</div>
+                <div className="counter"><div className={`countdown ${counterAnimation}`}>{counter}</div></div>
                 <button className="btn" onClick={countToGameStart}>Start Game</button>
             </div>
         </div>

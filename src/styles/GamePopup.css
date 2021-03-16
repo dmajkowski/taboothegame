@@ -17,31 +17,66 @@
     align-items: center;
     justify-content: space-around;
     width: 80vw;
-    height: 50vh;
-    background-color: white;
+    height: 70vh;
+    background-color: #2d345A;
+    border-radius: 30px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.44);
+    padding: 1rem;
+}
+
+.player{
+    font-size: 3rem;
+}
+
+.counter{
+    display: flex;
+    flex-grow: 1;
+    font-size: 100px;
+    justify-content: center;
+    align-items: center;
 }
 
 .countdown{
-    flex-grow: 1;
-    font-size: 100px;
+    position: absolute;
+    z-index: 500;
 }
 
 .animate{
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     animation-name: slidein;
+}
+
+.animate2{
+    animation-duration: 1.5s;
+    animation-name: slidein2;
 }
 
 @keyframes slidein {
     from {
-        font-size: 50px;
+        font-size: 100px;
     }
   
     to {
+        font-size: 500px;
+    }
+  }
+
+  @keyframes slidein2 {
+    from {
         font-size: 100px;
+    }
+  
+    to {
+        font-size: 500px;
     }
   }
 
 .btn{
-    width: 100px;
-    height: 50px;
+    width: 10rem;
+    height: 5rem;
+    margin-bottom: 3rem;
+    background: none;
+    border: 1px solid #4E7CFF;
+    border-radius: 0.7rem;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.44);
 }
