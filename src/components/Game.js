@@ -13,7 +13,7 @@ import "../styles/Game.css"
 function Game() {
   const [activeTeam, setActiveTeam] = useState("Team 1", "Team2"); //Obecnie grająca drużyna - domyślnie 1
   const [remainingRounds, setRemainingRounds] = useState(2)
-  const [maxTime, setMaxTime] = useState(10);
+  const [maxTime, setMaxTime] = useState(1000);
   const [currentScore, setCurrentScore] = useState({
     team1Score: 0,
     team2Score: 0,
@@ -162,12 +162,11 @@ function Game() {
       <Menu />
       {remainingRounds ?//This will be replaced by routing
         <div className="game">
-          <header>Taboo The Game</header>
           <main className="main">
-            {displayPopup && <GamePopup activeTeam={activeTeam} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} startCountingTime={startCountingTime} />}
-            <div className="currentPlayer">Teraz grają {activeTeam}</div>
-            <div className="scores">
+            {displayPopup && <GamePopup activeTeam={activeTeam === "Team1" ? "Czerwoni" : "Niebiescy"} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} startCountingTime={startCountingTime} />}
+            <div className="scoredisplay">
               <TeamScore currentScore={currentScore} />
+              <div className="currentPlayer">Teraz grają {activeTeam === "Team1" ? "CZERWONI" : "NIEBIESCY"}</div>
             </div>
             <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} startTimer={startTimer} />
             <WordBox displayNewWord={displayNewWord} a={currentWord} />
@@ -176,11 +175,13 @@ function Game() {
               <GamingButton type="correct" answerProvided={correctAnswerProvided} />
             </div>
           </main>
-          <footer>Copyright</footer>
         </div> :
         <Scoreboard scores={displayWinner(currentScore)} />
       }
-
+      <footer className="footer">
+        <i class="far fa-copyright"></i>
+        Taboo the game Copyright by Dariusz Majkowski
+      </footer>
     </>
   );
 }

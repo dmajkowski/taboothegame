@@ -7,10 +7,10 @@ function App() {
 
   return (
     <div className="container">
+      <header className="header"><h1>Taboo the game</h1></header>
       <Router>
         <Switch>
           <Route exact path="/">
-            <header className="header"><h1>Witaj w grze taboo!</h1></header>
             <div className="mainmenu">
               <nav>
                 <ul>

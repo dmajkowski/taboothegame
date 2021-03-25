@@ -3,9 +3,42 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .scoredisplay{
+    width: 70vw;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .currentPlayer{
+    order: 1;
+    font-size: 2rem;
+    font-weight: 300;
+  }
   
   .gaming-buttons{
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 480px) {
+    .currentPlayer{
+      font-size: 1rem;
+      text-align: center;
+    }
+    .scoredisplay{
+      width: 100vw;
+      display: flex;
+      justify-content: space-evenly;
+    }
   }
