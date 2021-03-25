@@ -1,6 +1,8 @@
+import '../styles/ForbiddenWord.css'
+
 const ForbiddenWord = ({ forbiddenWord }) => {
     return (
-        <div>{forbiddenWord}</div>
+        <div className="forbiddenword">{forbiddenWord.toUpperCase()}</div>
     );
 }
 

@@ -1,0 +1,11 @@
+.forbiddenword{
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+@media (max-width: 480px) {
+    .forbiddenword{
+        font-weight: 400;
+        font-size: 1.5rem;
+    }
+  }

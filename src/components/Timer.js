@@ -1,26 +1,26 @@
 import { useState, useEffect } from 'react';
+import "../styles/Timer.css"
 
 const Timer = (props) => {
 
     const [maxTime, setMaxTime] = useState(props.maxTime);
-
-    function countAnswerTime() {
-        let currentTime = maxTime;
-        const timerInterval = setInterval(() => {
-            currentTime > 0 && currentTime--;
-            setMaxTime(currentTime);
-            console.log(currentTime)
-            props.changeActiveTeam(currentTime);
-            currentTime === 0 && window.clearInterval(timerInterval)
-            currentTime === 0 && setMaxTime(props.maxTime)
-        }, 1000)
-    };
+    const [timerInterval, setTimerInterval] = useState(props.maxTime);
 
     useEffect(() => {
+        function countAnswerTime() {
+            let currentTime = maxTime;
+            setTimerInterval(setInterval(() => {
+                currentTime > 0 && currentTime--;
+                setMaxTime(currentTime);
+                props.changeActiveTeam(currentTime);
+                currentTime === 0 && window.clearInterval()
+                currentTime === 0 && setMaxTime(props.maxTime)
+            }, 1000))
+        };
+
         props.startTimer && countAnswerTime();
-        console.log(props.startTimer);
         return function cleanup() {
-            window.clearInterval();
+            timerInterval && window.clearInterval(timerInterval);
         };
     }, [props.startTimer]);
 

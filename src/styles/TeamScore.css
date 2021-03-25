@@ -1,0 +1,26 @@
+.team1Score{
+    order:1;
+}
+
+.team2Score{
+    order:3;
+}
+
+.team1Score, .team2Score{
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (min-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    
+}
+
+@media (max-width: 480px) {
+    .team1Score, .team2Score{
+        font-size: 1rem;
+        text-align: center;
+    }
+  }

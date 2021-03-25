@@ -15,8 +15,8 @@ const WordBox = (props) => {
     }, [])
     return (
         <div className="wordbox">
-            <div className="guessWord">{props.a && props.a.word}</div>
-            <div>
+            <div className="guessWord">{props.a && props.a.word.toUpperCase()}</div>
+            <div className="forbiddenwords">
                 Zakazane słowa:
                 {props.a && displayForbiddenWord()}
             </div>

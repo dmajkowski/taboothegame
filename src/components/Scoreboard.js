@@ -1,6 +1,9 @@
 const Scoreboard = (props) => {
     return (
-        <div>Wygrała drużyna {props.winner}</div>
+        <div>
+            <div>Wygrała drużyna {props.scores.winner}</div>
+            <div>Wynik {props.scores.pointsTeam1} : {props.scores.pointsTeam2}</div>
+        </div>
     );
 }
 
