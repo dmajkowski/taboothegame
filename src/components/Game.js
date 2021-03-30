@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import WordBox from "./WordBox";
 import GamingButton from "./GamingButton";
@@ -9,8 +9,33 @@ import Scoreboard from './Scoreboard'
 import Menu from './Menu'
 import "../styles/Game.css"
 
+// Firebase App (the core Firebase SDK) is always required and must be listed first
+import firebase from "firebase/app";
+// If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
+// import * as firebase from "firebase/app"
+
+// Add the Firebase products that you want to use
+import "firebase/firestore";
+
 
 function Game() {
+
+  // TODO: Replace the following with your app's Firebase project configuration
+  // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+  const firebaseConfig = {
+    apiKey: "AIzaSyBYseLkrqHpp9QuknKFZ9lspI72IQRjHxU",
+    authDomain: "taboo-b5dff.firebaseapp.com",
+    projectId: "taboo-b5dff",
+    storageBucket: "taboo-b5dff.appspot.com",
+    messagingSenderId: "952354298632",
+    appId: "1:952354298632:web:7b94053c1eb2a1595e2abd"
+  };
+
+  if (firebase.apps.length < 1) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
   const [activeTeam, setActiveTeam] = useState("Team 1", "Team2"); //Obecnie grająca drużyna - domyślnie 1
   const [remainingRounds, setRemainingRounds] = useState(2)
   const [maxTime, setMaxTime] = useState(1000);
@@ -20,89 +45,21 @@ function Game() {
   }); //obecny wynik kazdej z druzyn
   const [displayPopup, setDisplayPopup] = useState(true);
   const [startTimer, setStartTimer] = useState(false);
-  const [words, setWords] = useState([
-    {
-      word: "0ksiezyc",
-      forbiddenWords: ["wilkolak", "cos", "cosik", "cosik"],
-    },
-    {
-      word: "1ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "2ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "3ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "4ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "5ksiezyc",
-      forbiddenWords: ["wilkolak", "cos", "cosik", "cosik"],
-    },
-    {
-      word: "6ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "7ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "8ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "9ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "10ksiezyc",
-      forbiddenWords: ["wilkolak", "cos", "cosik", "cosik"],
-    },
-    {
-      word: "11ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "12ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "13ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "14ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "15ksiezyc",
-      forbiddenWords: ["wilkolak", "cos", "cosik", "cosik"],
-    },
-    {
-      word: "16ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "17ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "18ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    },
-    {
-      word: "19ksiezyc",
-      forbiddenWords: ["wilkolak", "wilkolak", "wilkolak", "cosik"],
-    }
-  ]); //Tablica obiektów ze słowami do odgadniecia i słowami zabronionymi
+  const [words, setWords] = useState([]); //Tablica obiektów ze słowami do odgadniecia i słowami zabronionymi
   const [currentWord, setCurrentWord] = useState();
+  const [dataFetched, setDataFetched] = useState(false);
+
+  useEffect(() => {
+    db.collection("wordSet").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        setWords(prevState => [...prevState, doc.data()]);
+        setDataFetched(true);
+      });
+    });
+    console.log("DATA FETCHED")
+  }, []);
+
   const changeActiveTeam = (time) => {
     if (time === 0) {
       setActiveTeam(activeTeam === 'Team 1' ? 'Team2' : 'Team 1');
@@ -169,7 +126,7 @@ function Game() {
               <div className="currentPlayer">Teraz grają {activeTeam === "Team1" ? "CZERWONI" : "NIEBIESCY"}</div>
             </div>
             <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} startTimer={startTimer} />
-            <WordBox displayNewWord={displayNewWord} a={currentWord} />
+            <WordBox displayNewWord={displayNewWord} a={currentWord} dataFetched={dataFetched} />
             <div className="gaming-buttons">
               <GamingButton type="incorrect" answerProvided={inCorrectAnswerProvided} />
               <GamingButton type="correct" answerProvided={correctAnswerProvided} />

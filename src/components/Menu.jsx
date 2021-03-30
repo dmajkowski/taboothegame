@@ -11,9 +11,13 @@ const Menu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
     return (
-        <Router>
-            <button onClick={toggleMenu} className={`menu-btn ${isMenuOpen ? "opened" : null}`}></button>
-        </Router>
+        <div className={isMenuOpen ? "menu--opened" : "menu"}>
+            <button onClick={toggleMenu} className={`menu-btn ${isMenuOpen ? "opened" : ""}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     );
 }
 

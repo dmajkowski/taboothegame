@@ -1,63 +1,103 @@
+.menu{
+  position: fixed;
+  right: -40vw;
+  z-index: 199;
+  background-color: #29bb89;
+  border-radius: 50%;
+  overflow: hidden;
+  animation-duration: 0.5s;
+  animation-name: closemenu;
+}
+
+.menu--opened{
+  position: fixed;
+  bottom: 0;
+  right: -40vw;
+  width: 80vw;
+  height: 200vh;
+  z-index: 199;
+  background-color: #29bb89;
+  border-radius: 50%;
+  overflow: hidden;
+  animation-duration: 0.5s;
+  animation-name: openmenu;
+}
+
+@keyframes openmenu {
+  from {
+    width: 0;
+    height: 0;
+    bottom: 100%;
+  }
+
+  to {
+    width: 80vw;
+    height: 200vh;
+    bottom: 0;
+  }
+}
+
+@keyframes closemenu {
+  from {
+    width: 80vw;
+    height: 200vh;
+    bottom: 0;
+  }
+
+  to {
+    width: 0;
+    height: 0;
+    bottom: 100%;
+  }
+}
+
+
 .menu-btn{
     width: 40px;
-    height: 35px;
+    height: 30px;
+    position: fixed;
+    top: 2%;
+    right: 3%;
     z-index: 200;
-    border: 0;
-    border-top: 5px solid #ffffff;
+    border: 1px solid transparent;
     background: none;
-    position: absolute;
-    top: 5%;
-    left: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
 }
 
-.menu-btn::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+.menu-btn span{
+    background-color: #e6dd3b;
     width: 100%;
-    border-top: 5px solid #ffffff;
-    transform: translateY(5px);
-    transition: all 0.3s ease;
+    height: 5px;
+    transition: all 0.5s ease;
 }
 
-.menu-btn::after{
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border-top: 5px solid #ffffff;
-    transform: translateY(-15px);
-    transition: all 0.3s ease;
+.menu-btn span:nth-child(even) {
+  transition: all 0.5s ease;
 }
 
-.menu-btn:hover::after{
-    transform: translateY(-5px);
-    transition: all 0.3s ease;
+.menu-btn:hover{
+    height: 35px;
+    transition: all 0.2s ease;
 }
 
-.menu-btn:hover::before{
-    transform: translateY(10px);
-    transition: all 0.3s ease;
+.opened, .opened:hover{
+    height: 35px;
+    width: 40px;
 }
 
-.opened{
-    border: none;
-}
+.opened span:nth-child(even) {
+    display: none;
+  }
 
-.opened::after{
-    transform: rotate(-45deg) translate(15px, -15px);
-}
-
-.opened:hover::after{
-    transform: rotate(-45deg) translate(15px, -15px);
-}
-
-.opened::before{
+  .opened span:nth-child(1) {
     transform: rotate(45deg) translate(10px, 10px);
-}
+    transition: all 0.5s ease;
+  }
 
-.opened:hover::before{
-    transform: rotate(45deg) translate(10px, 10px);
-}
+  .opened span:nth-child(3) {
+    transform: rotate(-45deg) translate(10px, -10px);
+    transition: all 0.5s ease;
+  }
