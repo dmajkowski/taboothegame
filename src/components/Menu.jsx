@@ -11,12 +11,13 @@ const Menu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
     return (
-        <button onClick={toggleMenu} className={`menu-btn ${isMenuOpen ? "opened" : ""}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
+        <div className={isMenuOpen ? "menu--opened" : "menu"}>
+            <button onClick={toggleMenu} className={`menu-btn ${isMenuOpen ? "opened" : ""}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     );
 }
 

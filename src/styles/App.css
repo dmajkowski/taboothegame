@@ -9,7 +9,7 @@
 }
 
 .container{
-    height: 100vh;
+    min-height: 100vh;
     background-color: #25294A;
     display: flex;
     flex-direction: column;
