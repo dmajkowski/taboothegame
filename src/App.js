@@ -10,7 +10,7 @@ function App() {
       <header className="header"><h1>Taboo the game</h1></header>
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route path="/mainmenu">
             <div className="mainmenu">
               <nav>
                 <ul>
@@ -24,9 +24,10 @@ function App() {
               </nav>
             </div>
           </Route>
-          <Route path="/game">
+          <Route exact path="/game">
             <Game />
           </Route>
+          <Redirect from="/" to="mainmenu" />
         </Switch>
       </Router>
     </div>
