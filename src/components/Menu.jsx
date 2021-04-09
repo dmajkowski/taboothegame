@@ -17,6 +17,13 @@ const Menu = () => {
                 <span></span>
                 <span></span>
             </button>
+            <ul className="menu__items">
+                <li className="menu__item">Home</li>
+                <li className="menu__item">Zacznij od nowa</li>
+                <li className="menu__item">TBA</li>
+                <li className="menu__item">TBA</li>
+                <li className="menu__item">TBA</li>
+            </ul>
         </div>
     );
 }
