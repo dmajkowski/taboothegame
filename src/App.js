@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="container">
       <header className="header"><h1>Taboo the game</h1></header>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route path="/mainmenu">
             <div className="mainmenu">
