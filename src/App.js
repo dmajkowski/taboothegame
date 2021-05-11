@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Link, Route, Switch, Redirect } from "react-ro
 import Game from './components/Game';
 import "./styles/App.css"
 
+
+
 function App() {
 
   return (
@@ -24,10 +26,8 @@ function App() {
               </nav>
             </div>
           </Route>
-          <Route exact path="/game">
-            <Game />
-          </Route>
-          <Redirect from="/" to="mainmenu" />
+          <Route path="/game" component={Game} />
+          <Redirect from="/" to="/mainmenu" />
         </Switch>
       </Router>
     </div>

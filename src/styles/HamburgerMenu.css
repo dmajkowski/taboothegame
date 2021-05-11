@@ -1,57 +1,27 @@
 .menu{
   position: fixed;
   right: -40vw;
+  height: 200vh;
+  bottom: 0;
   z-index: 199;
   background-color: #29bb89;
   border-radius: 50%;
   overflow: hidden;
-  animation-duration: 0.5s;
-  animation-name: closemenu;
-  display: flex;
 }
 
 .menu--opened{
-  position: fixed;
-  bottom: 0;
-  right: -40vw;
   width: 80vw;
-  height: 200vh;
-  z-index: 199;
-  background-color: #29bb89;
-  border-radius: 50%;
-  overflow: hidden;
-  animation-duration: 0.5s;
-  animation-name: openmenu;
-}
-
-@keyframes openmenu {
-  from {
-    width: 0;
-    height: 0;
-    bottom: 100%;
-  }
-
-  to {
-    width: 80vw;
     height: 200vh;
     bottom: 0;
-  }
+  transition: 0.7s 0s all ease;
 }
 
-@keyframes closemenu {
-  from {
-    width: 80vw;
-    height: 200vh;
-    bottom: 0;
-  }
-
-  to {
-    width: 0;
+.menu--closed{
+  width: 0;
     height: 0;
     bottom: 100%;
-  }
+  transition: 0.7s 0s all ease;
 }
-
 
 .menu-btn{
     width: 40px;
@@ -125,4 +95,44 @@
   .menu__item:hover{
     font-size: 3.5rem;
     transition: all 0.5s ease;
+  }
+
+  @media (max-width: 480px) {
+    .menu{
+      position: fixed;
+      right: -10%;
+      height: 100%;
+      z-index: 199;
+      width: 80vw;
+      background-color: #29bb89;
+      border-radius: 10%;
+      overflow: hidden;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      bottom: 0;
+    }
+    
+    .menu--opened{
+      left: 30vw;
+      transition: 0.4s 0s all ease;
+    }
+    
+    .menu--closed{
+      left: 100vw;
+      transition: 0.4s 0s all ease;
+    }
+
+    .menu__item{
+      font-size: 1.5rem;
+    }
+    .menu__items{
+      position: relative;
+      bottom: 0;
+      left: 0;
+      height: 60vh;
+      width: 80vw;
+      display: flex;
+      flex-direction: column;
+    }
   }

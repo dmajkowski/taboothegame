@@ -1,26 +1,26 @@
-import { BrowserRouter as Router, Link, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
-import '../styles/Menu.css'
-
+import '../styles/HamburgerMenu.css'
 
 
 const Menu = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
     return (
-        <div className={isMenuOpen ? "menu--opened" : "menu"}>
+        <div className={`menu ${isMenuOpen ? "menu--opened" : "menu--closed"}`}>
             <button onClick={toggleMenu} className={`menu-btn ${isMenuOpen ? "opened" : ""}`}>
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <ul className="menu__items">
-                <li className="menu__item">Home</li>
-                <li className="menu__item">Zacznij od nowa</li>
-                <li className="menu__item">TBA</li>
+                <li className="menu__item"><Link to="/mainmenu">Strona główna</Link></li>
+                <li className="menu__item"><Link to="/game">Zacznij od nowa</Link></li>
+                <li className="menu__item"><Link to="">TBA</Link></li>
                 <li className="menu__item">TBA</li>
                 <li className="menu__item">TBA</li>
             </ul>
