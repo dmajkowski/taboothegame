@@ -6,7 +6,7 @@ import Timer from "./Timer";
 import TeamScore from './TeamScore';
 import GamePopup from './GamePopup';
 import Scoreboard from './Scoreboard'
-import Menu from './Menu'
+import HamburgerMenu from './HamburgerMenu'
 import "../styles/Game.css"
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -116,7 +116,7 @@ function Game() {
 
   return (
     <>
-      <Menu />
+      <HamburgerMenu />
       {remainingRounds ?//This will be replaced by routing
         <div className="game">
           <main className="main">
