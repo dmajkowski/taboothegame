@@ -1,11 +1,27 @@
 
 import { BrowserRouter as Router, Link, Route, Switch, Redirect } from "react-router-dom";
+import { useState } from "react";
+
+import Scoreboard from './components/Scoreboard';
 import Game from './components/Game';
 import "./styles/App.css"
 
 
 
 function App() {
+
+  const [scores, setScores] = useState();
+
+  const setScore = (score) => {
+    const teamsScoreDifference = score.team1Score - score.team2Score;
+    if (teamsScoreDifference > 0) {
+      setScores({ winner: "Team1", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score });
+    } else if (teamsScoreDifference < 0) {
+      setScores({ winner: "Team2", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score });
+    } else if (teamsScoreDifference === 0) {
+      setScores({ winner: "Draw", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score });
+    }
+  }
 
   return (
     <div className="container">
@@ -26,7 +42,16 @@ function App() {
               </nav>
             </div>
           </Route>
-          <Route path="/game" component={Game} />
+          <Route path="/game"
+            render={(props) => (
+              <Game setScore={setScore} />
+            )}
+          />
+          <Route path="/scoreboard"
+            render={(props) => (
+              <Scoreboard scores={scores} />
+            )}
+          />
           <Redirect from="/" to="/mainmenu" />
         </Switch>
       </Router>

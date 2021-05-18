@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 
 import WordBox from "./WordBox";
 import GamingButton from "./GamingButton";
@@ -18,7 +19,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 
-function Game() {
+function Game(props) {
 
   // TODO: Replace the following with your app's Firebase project configuration
   // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
@@ -36,9 +37,9 @@ function Game() {
   }
   const db = firebase.firestore();
 
-  const [activeTeam, setActiveTeam] = useState("Team 1", "Team2"); //Obecnie grająca drużyna - domyślnie 1
-  const [remainingRounds, setRemainingRounds] = useState(2)
-  const [maxTime, setMaxTime] = useState(1000);
+  const [activeTeam, setActiveTeam] = useState("Team1"); //Obecnie grająca drużyna - domyślnie 1
+  const [remainingRounds, setRemainingRounds] = useState(1);
+  const [maxTime, setMaxTime] = useState(10);
   const [currentScore, setCurrentScore] = useState({
     team1Score: 0,
     team2Score: 0,
@@ -48,6 +49,7 @@ function Game() {
   const [words, setWords] = useState([]); //Tablica obiektów ze słowami do odgadniecia i słowami zabronionymi
   const [currentWord, setCurrentWord] = useState();
   const [dataFetched, setDataFetched] = useState(false);
+  let history = useHistory();
 
   useEffect(() => {
     db.collection("wordSet").get().then((querySnapshot) => {
@@ -62,7 +64,7 @@ function Game() {
 
   const changeActiveTeam = (time) => {
     if (time === 0) {
-      setActiveTeam(activeTeam === 'Team 1' ? 'Team2' : 'Team 1');
+      setActiveTeam(activeTeam === 'Team1' ? 'Team2' : 'Team1');
       setRemainingRounds(remainingRounds - 0.5);
       setDisplayPopup(true);
       setStartTimer(false);
@@ -74,7 +76,7 @@ function Game() {
   const updatePoints = (type) => {
     switch (type) {
       case "add":
-        activeTeam === "Team 1" ? setCurrentScore((prevState) => ({
+        activeTeam === "Team1" ? setCurrentScore((prevState) => ({
           ...currentScore,
           team1Score: prevState.team1Score + 1,
         })) : setCurrentScore((prevState) => ({
@@ -83,7 +85,7 @@ function Game() {
         }));
         break;
       case "remove":
-        activeTeam === "Team 1" ? setCurrentScore((prevState) => ({
+        activeTeam === "Team1" ? setCurrentScore((prevState) => ({
           ...currentScore,
           team1Score: prevState.team1Score - 1,
         })) : setCurrentScore((prevState) => ({
@@ -103,38 +105,29 @@ function Game() {
     updatePoints("remove");
     displayNewWord();
   }
-  const displayWinner = (score) => {
-    const teamsScoreDifference = score.team1Score - score.team2Score;
-    if (teamsScoreDifference > 0) {
-      return { winner: "Team1", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score }
-    } else if (teamsScoreDifference < 0) {
-      return { winner: "Team2", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score }
-    } else if (teamsScoreDifference = 0) {
-      return { winner: "Draw", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score }
-    }
-  }
+
+  remainingRounds === 0 && props.setScore(currentScore);
+  remainingRounds === 0 && history.push("/scoreboard")
+
 
   return (
     <>
       <HamburgerMenu />
-      {remainingRounds ?//This will be replaced by routing
-        <div className="game">
-          <main className="main">
-            {displayPopup && <GamePopup activeTeam={activeTeam === "Team1" ? "Czerwoni" : "Niebiescy"} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} startCountingTime={startCountingTime} />}
-            <div className="scoredisplay">
-              <TeamScore currentScore={currentScore} />
-              <div className="currentPlayer">Teraz grają {activeTeam === "Team1" ? "CZERWONI" : "NIEBIESCY"}</div>
-            </div>
-            <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} startTimer={startTimer} />
-            <WordBox displayNewWord={displayNewWord} a={currentWord} dataFetched={dataFetched} />
-            <div className="gaming-buttons">
-              <GamingButton type="incorrect" answerProvided={inCorrectAnswerProvided} />
-              <GamingButton type="correct" answerProvided={correctAnswerProvided} />
-            </div>
-          </main>
-        </div> :
-        <Scoreboard scores={displayWinner(currentScore)} />
-      }
+      <div className="game">
+        <main className="main">
+          {displayPopup && <GamePopup activeTeam={activeTeam === "Team1" ? "Czerwoni" : "Niebiescy"} setDisplayPopup={setDisplayPopup} displayPopup={displayPopup} startCountingTime={startCountingTime} />}
+          <div className="scoredisplay">
+            <TeamScore currentScore={currentScore} />
+            <div className="currentPlayer">Teraz grają {activeTeam === "Team1" ? "CZERWONI" : "NIEBIESCY"}</div>
+          </div>
+          <Timer maxTime={maxTime} changeActiveTeam={changeActiveTeam} startTimer={startTimer} />
+          <WordBox displayNewWord={displayNewWord} a={currentWord} dataFetched={dataFetched} />
+          <div className="gaming-buttons">
+            <GamingButton type="incorrect" answerProvided={inCorrectAnswerProvided} />
+            <GamingButton type="correct" answerProvided={correctAnswerProvided} />
+          </div>
+        </main>
+      </div>
       <footer className="footer">
         <i class="far fa-copyright"></i>
         Taboo the game Copyright by Dariusz Majkowski
