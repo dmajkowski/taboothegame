@@ -71,16 +71,6 @@
     }
   }
 
- .btn{ /* zmienić tutaj na komponent button */
-    width: 10rem;
-    height: 5rem;
-    margin-bottom: 3rem;
-    background: none;
-    border: 1px solid #1e6f5c;
-    border-radius: 0.7rem;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.44);
-}
-
 @media (max-width: 480px) {
     .player{
         font-size: 2rem;
