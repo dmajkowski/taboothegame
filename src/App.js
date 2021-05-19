@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Scoreboard from './components/Scoreboard';
 import Game from './components/Game';
+import Footer from './components/Footer';
 import "./styles/App.css"
 
 
@@ -22,7 +23,6 @@ function App() {
       setScores({ winner: "Draw", pointsTeam1: score.team1Score, pointsTeam2: score.team2Score });
     }
   }
-
   return (
     <div className="container">
       <header className="header"><h1>Taboo the game</h1></header>
@@ -54,6 +54,7 @@ function App() {
           />
           <Redirect from="/" to="/mainmenu" />
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
